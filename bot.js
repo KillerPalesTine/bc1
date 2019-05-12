@@ -3,14 +3,6 @@ const client = new Discord.Client();
 var prefix = "$"
 var adminprefix = "$"
 
-client.on("message", msg => {
-let men = msg.mentions.members.first()
-if(!men || !men.voiceChannel) return;
-if(msg.content === prefix+"vkick") {
-men.setVoiceChannel(null)
-}
-});
-
 
 client.on('message', message => {
     if (message.content.startsWith("$hack")) {
