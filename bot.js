@@ -158,71 +158,62 @@ if (message.content.startsWith(adminprefix + 'setava')) {
 }
 });
 
-client.on('message', message => {                      
-    if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'new')) {
+//كود ترحيب مع الغاء و تفعيل وكود التوديع مع الغاء وتفعيل 
 
-     if(message.guild
-      .member (message.author)
-      .roles.find ("name" , "V")) return;
-      let num = Math.floor((Math.random() * 4783) + 10);
-   
-      //Shady Craft YT#4176
+client.on("guildMemberAdd", member => {
+  let channel = member.guild.channels.find("name", "welcome");
+  let role = member.guild.roles.find("name", "welcome");
+  let memberavatar = member.user.avatarURL;
+  if (!role) return;
+  if (!channel) return;
+  let embed = new Discord.RichEmbed()
+    .setColor("RANDOM")
+    .setThumbnail(memberavatar)
+    .addField(":running_shirt_with_sash: | name :  ", `${member}`)
+    .addField(
+      ":loudspeaker: | نورت السيرفر يا قلبي",
+      `Welcome to the server, ${member}`
+    )
+    .addField(":id: | user :", "**[" + `${member.id}` + "]**")
+    .addField("➡| انت العضو رقم", `${member.guild.memberCount}`)
 
-message.channel.send(`يرجاء كتابة الرقم التالي: **${num}**`).then(m => {
-        
-//Shady Craft YT#4176
-message.channel.awaitMessages(res => res.content == `${num}`, {
-          max: 1,
-          time: 60000,
-          errors: ['time'],
-        }).then(collected => {
-          
-          //Shady Craft YT#4176
+    .addField("Name:", `<@` + `${member.id}` + `>`, true)
 
-message.member.addRole(message.guild.roles.find(c => c.name == "V"));
-        
-    message.guild
-      .createChannel(`ticket-${message.author.id}`, "text")
-      .then(c => {
-        let role = message.guild.roles.find("name", "⇁ Supporter");
-        let role2 = message.guild.roles.find("name", "@everyone");
-        let role3 = message.guild.roles.find("name", "⇁ Supporter-new");
-        c.overwritePermissions(role, {
-          SEND_MESSAGES: true,
-          READ_MESSAGES: true
-        });
-        c.overwritePermissions(role2, {
-          SEND_MESSAGES: false,
-          READ_MESSAGES: false
-        });
-        c.overwritePermissions(message.author, {
-          SEND_MESSAGES: true,
-          READ_MESSAGES: true
-        });
-        c.overwritePermissions(role3, {
-          SEND_MESSAGES: true,
-          READ_MESSAGES: true
-        });
-        
-      
-        const embed = new Discord.RichEmbed()
-          .setColor(0xcf40fa)
-          .addField(
-            `Hey ${message.author.username}!`,
-            `wait until Supporter answer you`
-          )
-          .setTimestamp();
-        c.send({
-          embed: embed
-        })
-    })
-        })
-      })
-       }
-  
-      
-        }); 
+    .addField(" الـسيرفر", `${member.guild.name}`, true)
+
+    .setFooter(`${member.guild.name}`)
+    .setTimestamp();
+
+  channel.sendEmbed(embed);
+});
+
+client.on("guildMemberRemove", member => {
+  var embed = new Discord.RichEmbed()
+    .setAuthor(member.user.username, member.user.avatarURL)
+    .setThumbnail(member.user.avatarURL)
+    .setTitle(`الله معاك :raised_hand::skin-tone-1: :pensive:`)
+    .setDescription(
+      `مع السلامه تشرفنا بك :raised_hand::skin-tone-1: :pensive: `
+    )
+    .addField(
+      ":bust_in_silhouette:   تبقي",
+      `**[ ${member.guild.memberCount} ]**`,
+      true
+    )
+    .setColor("RED")
+    .setFooter(
+      `==== نــتــمــنــآ لــكــم آســتــمـــتــآع ====`,
+      "https://cdn.discordapp.com/attachments/397818254439219217/399292026782351381/shy.png"
+    );
+
+  var channel = member.guild.channels.find("name", "goodbye");
+  var role = member.guild.roles.find("name", "goodbye");
+  if (!role) return;
+  if (!channel) return;
+  channel.send({ embed: embed });
+});
+
+//
 
 
 client.login(process.env.TOKEN);
