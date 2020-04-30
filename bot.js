@@ -158,5 +158,71 @@ if (message.content.startsWith(adminprefix + 'setava')) {
 }
 });
 
+client.on('message', message => {                      
+    if(!message.channel.guild) return;
+       if(message.content.startsWith(prefix + 'new')) {
+
+     if(message.guild
+      .member (message.author)
+      .roles.find ("name" , "V")) return;
+      let num = Math.floor((Math.random() * 4783) + 10);
+   
+      //Shady Craft YT#4176
+
+message.channel.send(`يرجاء كتابة الرقم التالي: **${num}**`).then(m => {
+        
+//Shady Craft YT#4176
+message.channel.awaitMessages(res => res.content == `${num}`, {
+          max: 1,
+          time: 60000,
+          errors: ['time'],
+        }).then(collected => {
+          
+          //Shady Craft YT#4176
+
+message.member.addRole(message.guild.roles.find(c => c.name == "V"));
+        
+    message.guild
+      .createChannel(`ticket-${message.author.id}`, "text")
+      .then(c => {
+        let role = message.guild.roles.find("name", "⇁ Supporter");
+        let role2 = message.guild.roles.find("name", "@everyone");
+        let role3 = message.guild.roles.find("name", "⇁ Supporter-new");
+        c.overwritePermissions(role, {
+          SEND_MESSAGES: true,
+          READ_MESSAGES: true
+        });
+        c.overwritePermissions(role2, {
+          SEND_MESSAGES: false,
+          READ_MESSAGES: false
+        });
+        c.overwritePermissions(message.author, {
+          SEND_MESSAGES: true,
+          READ_MESSAGES: true
+        });
+        c.overwritePermissions(role3, {
+          SEND_MESSAGES: true,
+          READ_MESSAGES: true
+        });
+        
+      
+        const embed = new Discord.RichEmbed()
+          .setColor(0xcf40fa)
+          .addField(
+            `Hey ${message.author.username}!`,
+            `wait until Supporter answer you`
+          )
+          .setTimestamp();
+        c.send({
+          embed: embed
+        })
+    })
+        })
+      })
+       }
+  
+      
+        }); 
+
 
 client.login(process.env.TOKEN);
