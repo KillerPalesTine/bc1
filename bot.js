@@ -8,7 +8,7 @@ var adminprefix = '&'
 
 client.on("message", message => {
     if (message.content.startsWith("&obc")) {
-                 if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+                 if(!message.author.id == '340580530951290880') return;
   let args = message.content.split(" ").slice(1);
   var argresult = args.join(' ');
   message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
@@ -28,7 +28,7 @@ client.on("message", message => {
   client.on("message", message => {
   
               if (message.content.startsWith(prefix + "bc")) {
-                           if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+                           if(!message.author.id == '340580530951290880') return;
     let args = message.content.split(" ").slice(1);
     var argresult = args.join(' '); 
     message.guild.members.filter(m => m.presence.status !== 'offline').forEach(m => {
@@ -57,7 +57,7 @@ client.on('ready',  () => {
     if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
 if (message.content.startsWith('&adminbc')){
-if(!message.author.id === '476185102922285066') return;
+if(!message.author.id === '518816831734022154') return;
 message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
 client.users.forEach(m =>{
 m.sendMessage(args)
@@ -123,7 +123,6 @@ if (message.content.startsWith(adminprefix + 'setava')) {
     message.channel.send(`Changing The Avatar To :**${argresult}** `);
 }
 });
-
 
 
 
